@@ -15,6 +15,7 @@ public class PlayerController1 : MonoBehaviour
     private Animator aPlayer;
 
     private bool miraDerecha = true;
+    private bool enPlataforma = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +66,25 @@ public class PlayerController1 : MonoBehaviour
             Vector3 escalaGiro = transform.localScale;
             escalaGiro.x = escalaGiro.x * -1;
             transform.localScale = escalaGiro;
+        }
+    }
+
+    //Movimiento de personaje y platafdorma
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "PlataformaMov")
+        {
+            transform.parent = collision.transform;
+            enPlataforma = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "PlataformaMov")
+        {
+            transform.parent = null;
+            enPlataforma = false;
         }
     }
 
